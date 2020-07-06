@@ -1,14 +1,19 @@
-<html class="" data-reactroot=""><head><script async="" src="https://www.google-analytics.com/analytics.js"></script><script>
+<!doctype html><html class="" data-reactroot=""><head><script async="" src="https://www.google-analytics.com/analytics.js"></script><script>
             window.GoogleAnalyticsObject="ga";(window.ga=window.ga||function(){(window.ga.q=window.ga.q||[]).push(arguments);}),(window.ga.l=1*new Date());
 
             ga('create', 'UA-169223577-1', 'auto');
-            ga('send', 'pageview');</script><title>Deno + WebSockets 打造聊天室应用 · Deno 钻研之术</title><meta charSet="utf-8"/><link id="prismTheme" rel="stylesheet" href="/assets/prism.css"/><script>
-let shouldSetIsDark = document.cookie.includes('is_dark=1') ? true : document.cookie.includes('is_dark=0') ? false : window.matchMedia('(prefers-color-scheme: dark)').matches
-if (shouldSetIsDark) {
-  document.documentElement.classList.add('is_dark');
-  document.getElementById('prismTheme').href = "/assets/prism_tomorrow.css";
-}
-</script><link rel="stylesheet" href="/assets/index.css"/></head><body><header><h1><a href="/">Deno 钻研之术</a></h1><nav><ul><li><a href="https://github.com/hylerrix/deno-tutorial">源码</a></li><li><a href="https://deno.land">官网</a></li><li><a href="https://github.com/hylerrix/awesome-deno-cn">资源</a></li><li><a href="https://nugine.github.io/deno-manual-cn">手册</a></li><li><a href="https://deno.js.cn">deno.js.cn</a></li><li><a href="https://denocn.org">denocn.org</a></li><li><a href="https://github.com/xcatliu/pagic">Pagic 主题</a></li><li><a href="https://github.com/hylerrix">关于作者</a></li><li><a href="#">开启黑暗模式</a></li></ul></nav></header><aside><ul><li><a href="/index.html" class="">Deno 钻研之术</a></li><li><a href="/articles/index.html" class="">文章</a><ul><li><a href="/articles/001-install-and-hello-world.html" class="">(1) Hello，从多样化安装到简单实战</a></li><li><a href="/articles/002-awesome-deno-cn.html" class="">(2) Awesome Deno 中文资源全图谱</a></li></ul></li><li><a href="/translations/index.html" class="">翻译</a><ul><li><a href="/translations/001-the-deno-handbook.html" class="">Deno 入门手册：附大量 TypeScript 代码实例</a></li><li><a href="/translations/002-deno-chat-app.html" class="active">Deno + WebSockets 打造聊天室应用</a></li><li><a href="/translations/003-from-node-to-deno.html" class="">从 Node 到 Deno：探索各大主流库替代方案</a></li><li><a href="/translations/004-deno-oak-todo-api.html" class="">Deno + Oak 构建酷炫的 Todo API</a></li></ul></li></ul></aside><section class="main"><article><h1 id="deno-%2B-websockets-%E6%89%93%E9%80%A0%E8%81%8A%E5%A4%A9%E5%AE%A4%E5%BA%94%E7%94%A8">Deno + WebSockets 打造聊天室应用 <a class="header-anchor" href="#deno-%2B-websockets-%E6%89%93%E9%80%A0%E8%81%8A%E5%A4%A9%E5%AE%A4%E5%BA%94%E7%94%A8">§</a></h1>
+            ga('send', 'pageview');</script>
+<meta data-react-helmet="true" charset="utf-8"/><meta data-react-helmet="true" http-equiv="x-ua-compatible" content="ie=edge"/><meta data-react-helmet="true" name="viewport" content="width=device-width, initial-scale=1"/>
+<title data-react-helmet="true">Deno + WebSockets 打造聊天室应用 · Deno 钻研之术</title>
+<link data-react-helmet="true" rel="stylesheet" href="/assets/index.css"/><link data-react-helmet="true" id="prismTheme" rel="stylesheet" href="/assets/prism.css"/>
+<script data-react-helmet="true" >
+    const shouldSetIsDark = document.cookie.includes('is_dark=1') ? true : document.cookie.includes('is_dark=0') ? false : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (shouldSetIsDark) {
+      document.documentElement.classList.add('is_dark');
+      document.getElementById('prismTheme').href = "/assets/prism_tomorrow.css";
+    }
+  </script>
+</head><body><header><h1><a href="/">Deno 钻研之术</a></h1><nav><ul><li class="nav_custom_item"><a href="https://github.com/hylerrix/deno-tutorial">源码</a></li><li class="nav_custom_item"><a href="https://deno.land">官网</a></li><li class="nav_custom_item"><a href="https://github.com/hylerrix/awesome-deno-cn">资源</a></li><li class="nav_custom_item"><a href="https://nugine.github.io/deno-manual-cn">手册</a></li><li class="nav_custom_item"><a href="https://deno.js.cn">deno.js.cn</a></li><li class="nav_custom_item"><a href="https://denocn.org">denocn.org</a></li><li class="nav_custom_item"><a href="https://yoshixmk.github.io/deno-x-ranking/">Deno 库排行</a></li><li class="nav_custom_item"><a href="https://github.com/hylerrix">关于作者</a></li><li class="mobile_menu flex_center"><a class="czs-menu-l" href="#" style="background-image:url(&quot;/assets/czs-menu-l.svg&quot;)"></a></li><li class="mobile_header"><h1><a href="/">Deno 钻研之术</a></h1></li><li style="flex-grow:1"></li><li class="toggle_dark flex_center"><span class="czs-sun" style="background-image:url(&quot;/assets/czs-sun.svg&quot;)"></span><span class="czs-sun-l" style="background-image:url(&quot;/assets/czs-sun-l.svg&quot;)"></span><span class="czs-moon" style="background-image:url(&quot;/assets/czs-moon.svg&quot;)"></span><span class="czs-moon-l" style="background-image:url(&quot;/assets/czs-moon-l.svg&quot;)"></span></li></ul></nav></header><aside class="sidebar"><ol><li class="unfold"><a href="/index.html" class="nav_link">Deno 钻研之术</a></li><li class="unfold"><a href="/articles/index.html" class="nav_link">文章<span class="czs-angle-up-l" style="background-image:url(&quot;/assets/czs-angle-up-l.svg&quot;)"></span><span class="czs-angle-down-l" style="background-image:url(&quot;/assets/czs-angle-down-l.svg&quot;)"></span></a><ol style="height:auto"><li><a href="/articles/001-install-and-hello-world.html" class="nav_link">(1) Hello，从多样化安装到简单实战</a></li><li><a href="/articles/002-awesome-deno-cn.html" class="nav_link">(2) Awesome Deno 中文资源全图谱</a></li></ol></li><li class="unfold"><a href="/translations/index.html" class="nav_link">翻译<span class="czs-angle-up-l" style="background-image:url(&quot;/assets/czs-angle-up-l.svg&quot;)"></span><span class="czs-angle-down-l" style="background-image:url(&quot;/assets/czs-angle-down-l.svg&quot;)"></span></a><ol style="height:auto"><li><a href="/translations/001-the-deno-handbook.html" class="nav_link">Deno 入门手册：附大量 TypeScript 代码实例</a></li><li><a href="/translations/002-deno-chat-app.html" class="nav_link active">Deno + WebSockets 打造聊天室应用</a></li><li><a href="/translations/003-from-node-to-deno.html" class="nav_link">从 Node 到 Deno：探索各大主流库替代方案</a></li><li><a href="/translations/004-deno-oak-todo-api.html" class="nav_link">Deno + Oak 构建酷炫的 Todo API</a></li><li><a href="/translations/005-deno-oak-mysql.html" class="nav_link">Deno + Oak 连接 MySQL 实战教程</a></li></ol></li></ol><hr/><a class="powered_by" href="https://github.com/xcatliu/pagic" target="_blank">Powered by <img src="/assets/pagic.png"/>agic</a></aside><section class="main"><div class="main_article"><article><h1>Deno + WebSockets 打造聊天室应用</h1>
 <blockquote>
 <ul>
 <li>原文地址：<a href="https://aralroca.com/blog/learn-deno-chat-app">Learn Deno: Chat app</a></li>
@@ -36,7 +41,7 @@ if (shouldSetIsDark) {
 <li>本文的代码</li>
 <li>参考文献</li>
 </ul>
-<h2 id="%E5%AE%89%E8%A3%85-deno">安装 Deno <a class="header-anchor" href="#%E5%AE%89%E8%A3%85-deno">§</a></h2>
+<h2 id="%E5%AE%89%E8%A3%85-deno">安装 Deno<a class="anchor" href="#%E5%AE%89%E8%A3%85-deno">§</a></h2>
 <p>有各种各样安装 Deno 的方法：使用 curl、iwr、Homebrew、Chocolatey...，可以参阅<a href="https://github.com/denoland/deno_install">此处</a>查看如何安装。 Deno 没有外部依赖性，是个单独的二进制可执行文件。</p>
 <p>本文将采用 Homebrew 来安装：</p>
 <pre class="language-autoit"><code class="language-autoit">➜  ~ brew install deno
@@ -90,7 +95,7 @@ ENVIRONMENT VARIABLES（环境变量）<span class="token punctuation">:</span>
 <blockquote>
 <p>译者注：接下来会有 VS Code 版的官方插件，到时候可以在 VS Code 插件市场中搜索。</p>
 </blockquote>
-<h2 id="%E7%AE%80%E5%8D%95%E7%9A%84-%E2%80%9Chello-world%E2%80%9D-%E5%AE%9E%E6%88%98">简单的 “Hello World” 实战 <a class="header-anchor" href="#%E7%AE%80%E5%8D%95%E7%9A%84-%E2%80%9Chello-world%E2%80%9D-%E5%AE%9E%E6%88%98">§</a></h2>
+<h2 id="%E7%AE%80%E5%8D%95%E7%9A%84-%E2%80%9Chello-world%E2%80%9D-%E5%AE%9E%E6%88%98">简单的 “Hello World” 实战<a class="anchor" href="#%E7%AE%80%E5%8D%95%E7%9A%84-%E2%80%9Chello-world%E2%80%9D-%E5%AE%9E%E6%88%98">§</a></h2>
 <p>对于 Deno 中一个简单的 “Hello world” 程序，我们只需要创建一个相应的 <code>.js</code> 或 <code>.ts</code> 文件，并通过 <code>deno run [文件名]</code> 命令来执行。</p>
 <p>如果是 <code>.ts</code> 文件，Deno 将编译后执行；而对于 <code>.js</code> 文件，Deno 将直接执行：</p>
 <pre class="language-javascript"><code class="language-javascript"><span class="token comment">// example.ts file</span>
@@ -103,7 +108,7 @@ Hello from Deno 🖐
 </code></pre>
 <p>因为 Deno 本身支持直接运行 TypeScript 文件，<code>tsconfig.json</code> 配置文件便是可选的。要手动导入 <code>tsconfig.json</code> 配置，则需要执行 <code>deno run -c tsconfig.json [文件名]</code>。</p>
 <p>同时，Deno 会尽可能地支持 Web 标准，我们可以很方便的使用兼容浏览器环境的 <code>window</code>、<code>fetch</code>、<code>Worker</code> 变量。</p>
-<h2 id="%E6%9C%AC%E5%9C%B0%E7%9B%91%E5%90%AC-index.html-%E6%96%87%E4%BB%B6">本地监听 index.html 文件 <a class="header-anchor" href="#%E6%9C%AC%E5%9C%B0%E7%9B%91%E5%90%AC-index.html-%E6%96%87%E4%BB%B6">§</a></h2>
+<h2 id="%E6%9C%AC%E5%9C%B0%E7%9B%91%E5%90%AC-index.html-%E6%96%87%E4%BB%B6">本地监听 index.html 文件<a class="anchor" href="#%E6%9C%AC%E5%9C%B0%E7%9B%91%E5%90%AC-index.html-%E6%96%87%E4%BB%B6">§</a></h2>
 <p>Deno 有它内置的标准库（<a href="https://deno.land/std/">https://deno.land/std/</a>），因此我们可以直接从官方提供的 <strong>URL</strong> 上直接导入并使用这些模块。Deno 的目标之一包括支持运行一个存放于 URL 上、具有最小耦合性的单个可执行文件。这时便可以直接将这些模块导入到用户的项目中或者通过 <code>deno run https:// ...</code> 命令来在终端上执行。</p>
 <p>我们可以使用 <code>[https://deno.land/std/http/](https://deno.land/std/http/)</code> 模块来创建 HTTP 服务器并本地监听一个 <code>index.html</code> 文件。</p>
 <p>在接下来的示例中我们将创建 <code>server.ts</code> 和 <code>index.html</code> 两个文件。</p>
@@ -153,7 +158,7 @@ Compile <a class="token url-link" href="file:///Users/aralroca/server.ts">file:/
 Server running on localhost:3000
 </code></pre>
 <p><img src="https://cdn.nlark.com/yuque/0/2020/png/86548/1590401996995-e78e4067-778a-4def-ab64-c5900f0f73ae.png#align=left&amp;display=inline&amp;height=83&amp;margin=%5Bobject%20Object%5D&amp;originHeight=83&amp;originWidth=300&amp;size=0&amp;status=done&amp;style=none&amp;width=300" alt=""></p>
-<h2 id="%E5%BC%95%E5%85%A5-websockets">引入 WebSockets <a class="header-anchor" href="#%E5%BC%95%E5%85%A5-websockets">§</a></h2>
+<h2 id="%E5%BC%95%E5%85%A5-websockets">引入 WebSockets<a class="anchor" href="#%E5%BC%95%E5%85%A5-websockets">§</a></h2>
 <p>WebSocket、UUID 以及其它对于 Node.js 来说必要的库都没有包含在 Node.js 的内核中。这意味着我们需要寻找第三方库来使用这些功能。现在，你可以直接在 Deno 的官方标准仓库中使用 WebSockets、UUID 等库了。因此，你不再需要担心这些库如果是第三方库的情况下，它们的不稳定性问题了——Deno 会直接维护这些功能。</p>
 <p>为了继续完善我们这个简单的聊天室应用程序，我们来创建一个名为 <code>chat.ts</code> 的文件：</p>
 <pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span>
@@ -287,7 +292,7 @@ Server running on localhost:3000
 <p>结果如下：</p>
 <p><img src="https://cdn.nlark.com/yuque/0/2020/gif/86548/1590401997122-f932682f-51e7-467f-a0ab-820dc296a559.gif#align=left&amp;display=inline&amp;height=264&amp;margin=%5Bobject%20Object%5D&amp;originHeight=264&amp;originWidth=800&amp;size=0&amp;status=done&amp;style=none&amp;width=800" alt=""></p>
 <p>这是一个并不优雅的的聊天室：没有样式，但是功能丰富。毕竟我们的目的是了解 Deno 的工作方式。</p>
-<h2 id="%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E4%B8%8E-dep.ts-%E7%BA%A6%E5%AE%9A">第三方库与 Dep.ts 约定 <a class="header-anchor" href="#%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E4%B8%8E-dep.ts-%E7%BA%A6%E5%AE%9A">§</a></h2>
+<h2 id="%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E4%B8%8E-dep.ts-%E7%BA%A6%E5%AE%9A">第三方库与 Dep.ts 约定<a class="anchor" href="#%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E4%B8%8E-dep.ts-%E7%BA%A6%E5%AE%9A">§</a></h2>
 <p>通过直接导入 URL 上的模块，我们可以像使用 Deno 标准库一样使用第三方库。</p>
 <ul>
 <li>STD，Deno 内置标准库：<a href="https://deno.land/std/">https://deno.land/std/</a></li>
@@ -318,7 +323,7 @@ Server running on localhost:3000
 <span class="token keyword">const</span> message <span class="token operator">=</span> <span class="token function">camelCase</span><span class="token punctuation">(</span><span class="token keyword">typeof</span> event <span class="token operator">===</span> <span class="token string">'string'</span> <span class="token operator">?</span> event <span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">)</span>
 <span class="token comment">// ...</span>
 </code></pre>
-<h2 id="%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81">编写测试代码 <a class="header-anchor" href="#%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81">§</a></h2>
+<h2 id="%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81">编写测试代码<a class="anchor" href="#%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81">§</a></h2>
 <p>我们将构建一个 <code>camelize.ts</code> 函数来看看 Deno 如何进行测试。该函数返回小驼峰法转换后的文本，并带有一个附加值（与大写字母数量相同的若干个 🐪）。</p>
 <pre class="language-javascript"><code class="language-javascript"><span class="token doc-comment comment">/**
  * Return the text in camelCase + how many 🐪
@@ -400,7 +405,7 @@ running <span class="token number">1</span> tests
 <p>如果你想使用一个能监听文件改动的观察者程序，在测试代码改动后重新执行测试，而非每次都得在改动后再次执行测试命令，则可以使用基于 <code>nodemon</code> 的 <a href="https://deno.land/x/denon/">https://deno.land/x/denon/</a> 库，然后运行 <code>denon test</code> 命令来提供热更新功能。</p>
 <p>现在我们可以在 <code>chat.ts</code> 上使用这个 camelize 函数了。</p>
 <p><img src="https://cdn.nlark.com/yuque/0/2020/png/86548/1590401996997-b1bda177-c81a-4fa6-bd86-e0518d923c7a.png#align=left&amp;display=inline&amp;height=132&amp;margin=%5Bobject%20Object%5D&amp;originHeight=132&amp;originWidth=700&amp;size=0&amp;status=done&amp;style=none&amp;width=700" alt=""></p>
-<h2 id="%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B0%83%E8%AF%95">浏览器调试 <a class="header-anchor" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B0%83%E8%AF%95">§</a></h2>
+<h2 id="%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B0%83%E8%AF%95">浏览器调试<a class="anchor" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B0%83%E8%AF%95">§</a></h2>
 <p>想要在 Deno 中进行调试的话：</p>
 <ol>
 <li>先在代码的某些行进行 <code>debugger;</code> 断点声明；</li>
@@ -410,11 +415,11 @@ running <span class="token number">1</span> tests
 <li>按名为“继续”的脚本执行按钮，让代码将在你所设立的断点处暂停。</li>
 </ol>
 <p><img src="https://cdn.nlark.com/yuque/0/2020/png/86548/1590401998603-f54c9d49-8249-4a25-b21c-92d8d9c63d7c.png#align=left&amp;display=inline&amp;height=468&amp;margin=%5Bobject%20Object%5D&amp;originHeight=468&amp;originWidth=700&amp;size=0&amp;status=done&amp;style=none&amp;width=700" alt=""></p>
-<h2 id="%E6%80%BB%E7%BB%93">总结 <a class="header-anchor" href="#%E6%80%BB%E7%BB%93">§</a></h2>
+<h2 id="%E6%80%BB%E7%BB%93">总结<a class="anchor" href="#%E6%80%BB%E7%BB%93">§</a></h2>
 <p>通过在 TypeScript 中创建一个简单的聊天室应用程序，我们了解了 Deno 的工作原理。我们在没有使用 Npm、package.json、node_modules、Webpack、Babel、Jest、Pettertier 的情况下完成了这些操作...因为我们不再需要它们，Deno 简化了它们。</p>
 <p>我们从如上项目中探索了权限、Deno 命令、使用第三方依赖项、监听文件、WebSocket、格式化文件、测试和调试等 Deno 的重要功能。</p>
 <p>我希望本文对入手在 2020 年 05 月 13 日发布的 Deno 1.0.0 会有所帮助。</p>
-<h2 id="%E6%9C%AC%E6%96%87%E7%9A%84%E4%BB%A3%E7%A0%81">本文的代码 <a class="header-anchor" href="#%E6%9C%AC%E6%96%87%E7%9A%84%E4%BB%A3%E7%A0%81">§</a></h2>
+<h2 id="%E6%9C%AC%E6%96%87%E7%9A%84%E4%BB%A3%E7%A0%81">本文的代码<a class="anchor" href="#%E6%9C%AC%E6%96%87%E7%9A%84%E4%BB%A3%E7%A0%81">§</a></h2>
 <p>我上传了本文的相关代码在我的 Github 上：</p>
 <ul>
 <li><a href="https://github.com/aralroca/chat-with-deno-and-preact">https://github.com/aralroca/chat-with-deno-and-preact</a></li>
@@ -422,7 +427,7 @@ running <span class="token number">1</span> tests
 <blockquote>
 <p>译者注：同时本文的代码也收录在了：<a href="https://github.com/hylerrix/deno-tutorial">https://github.com/hylerrix/deno-tutorial</a> 的 demos 目录下。</p>
 </blockquote>
-<h2 id="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">参考文献 <a class="header-anchor" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">§</a></h2>
+<h2 id="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">参考文献<a class="anchor" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">§</a></h2>
 <ul>
 <li><a href="https://deno.land/">https://deno.land/</a></li>
 <li><a href="https://github.com/denoland/deno/tree/master/docs">https://github.com/denoland/deno/tree/master/docs</a></li>
@@ -432,4 +437,4 @@ running <span class="token number">1</span> tests
 <li><a href="https://github.com/denoland/deno">https://github.com/denoland/deno</a></li>
 <li><a href="https://en.wikipedia.org/wiki/Ryan_Dahl">https://en.wikipedia.org/wiki/Ryan_Dahl</a></li>
 </ul>
-</article></section><script crossorigin="anonymous" src="https://unpkg.com/react@16.13.1/umd/react.production.min.js"></script><script crossorigin="anonymous" src="https://unpkg.com/react-dom@16.13.1/umd/react-dom.production.min.js"></script><script type="module" src="/main.js"></script></body></html>
+</article></div><div class="main_toc_container nav_link_container"><div class="main_toc"><aside><nav class="toc"><ol><li><a href="#%E5%AE%89%E8%A3%85-deno">安装 Deno</a></li><li><a href="#%E7%AE%80%E5%8D%95%E7%9A%84-%E2%80%9Chello-world%E2%80%9D-%E5%AE%9E%E6%88%98">简单的 “Hello World” 实战</a></li><li><a href="#%E6%9C%AC%E5%9C%B0%E7%9B%91%E5%90%AC-index.html-%E6%96%87%E4%BB%B6">本地监听 index.html 文件</a></li><li><a href="#%E5%BC%95%E5%85%A5-websockets">引入 WebSockets</a></li><li><a href="#%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E4%B8%8E-dep.ts-%E7%BA%A6%E5%AE%9A">第三方库与 Dep.ts 约定</a></li><li><a href="#%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81">编写测试代码</a></li><li><a href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B0%83%E8%AF%95">浏览器调试</a></li><li><a href="#%E6%80%BB%E7%BB%93">总结</a></li><li><a href="#%E6%9C%AC%E6%96%87%E7%9A%84%E4%BB%A3%E7%A0%81">本文的代码</a></li><li><a href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">参考文献</a></li></ol></nav></aside></div></div></section><script crossorigin="anonymous" src="https://unpkg.com/react@16.13.1/umd/react.production.min.js"></script><script crossorigin="anonymous" src="https://unpkg.com/react-dom@16.13.1/umd/react-dom.production.min.js"></script><script type="module" src="/index.js"></script></body></html>

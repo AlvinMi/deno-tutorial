@@ -1,14 +1,19 @@
-<html class="" data-reactroot=""><head><script async="" src="https://www.google-analytics.com/analytics.js"></script><script>
+<!doctype html><html class="" data-reactroot=""><head><script async="" src="https://www.google-analytics.com/analytics.js"></script><script>
             window.GoogleAnalyticsObject="ga";(window.ga=window.ga||function(){(window.ga.q=window.ga.q||[]).push(arguments);}),(window.ga.l=1*new Date());
 
             ga('create', 'UA-169223577-1', 'auto');
-            ga('send', 'pageview');</script><title>Deno 入门手册：附大量 TypeScript 代码实例 · Deno 钻研之术</title><meta charSet="utf-8"/><link id="prismTheme" rel="stylesheet" href="/assets/prism.css"/><script>
-let shouldSetIsDark = document.cookie.includes('is_dark=1') ? true : document.cookie.includes('is_dark=0') ? false : window.matchMedia('(prefers-color-scheme: dark)').matches
-if (shouldSetIsDark) {
-  document.documentElement.classList.add('is_dark');
-  document.getElementById('prismTheme').href = "/assets/prism_tomorrow.css";
-}
-</script><link rel="stylesheet" href="/assets/index.css"/></head><body><header><h1><a href="/">Deno 钻研之术</a></h1><nav><ul><li><a href="https://github.com/hylerrix/deno-tutorial">源码</a></li><li><a href="https://deno.land">官网</a></li><li><a href="https://github.com/hylerrix/awesome-deno-cn">资源</a></li><li><a href="https://nugine.github.io/deno-manual-cn">手册</a></li><li><a href="https://deno.js.cn">deno.js.cn</a></li><li><a href="https://denocn.org">denocn.org</a></li><li><a href="https://github.com/xcatliu/pagic">Pagic 主题</a></li><li><a href="https://github.com/hylerrix">关于作者</a></li><li><a href="#">开启黑暗模式</a></li></ul></nav></header><aside><ul><li><a href="/index.html" class="">Deno 钻研之术</a></li><li><a href="/articles/index.html" class="">文章</a><ul><li><a href="/articles/001-install-and-hello-world.html" class="">(1) Hello，从多样化安装到简单实战</a></li><li><a href="/articles/002-awesome-deno-cn.html" class="">(2) Awesome Deno 中文资源全图谱</a></li></ul></li><li><a href="/translations/index.html" class="">翻译</a><ul><li><a href="/translations/001-the-deno-handbook.html" class="active">Deno 入门手册：附大量 TypeScript 代码实例</a></li><li><a href="/translations/002-deno-chat-app.html" class="">Deno + WebSockets 打造聊天室应用</a></li><li><a href="/translations/003-from-node-to-deno.html" class="">从 Node 到 Deno：探索各大主流库替代方案</a></li><li><a href="/translations/004-deno-oak-todo-api.html" class="">Deno + Oak 构建酷炫的 Todo API</a></li></ul></li></ul></aside><section class="main"><article><h1 id="deno-%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C%EF%BC%9A%E9%99%84%E5%A4%A7%E9%87%8F-typescript-%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8B">Deno 入门手册：附大量 TypeScript 代码实例 <a class="header-anchor" href="#deno-%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C%EF%BC%9A%E9%99%84%E5%A4%A7%E9%87%8F-typescript-%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8B">§</a></h1>
+            ga('send', 'pageview');</script>
+<meta data-react-helmet="true" charset="utf-8"/><meta data-react-helmet="true" http-equiv="x-ua-compatible" content="ie=edge"/><meta data-react-helmet="true" name="viewport" content="width=device-width, initial-scale=1"/>
+<title data-react-helmet="true">Deno 入门手册：附大量 TypeScript 代码实例 · Deno 钻研之术</title>
+<link data-react-helmet="true" rel="stylesheet" href="/assets/index.css"/><link data-react-helmet="true" id="prismTheme" rel="stylesheet" href="/assets/prism.css"/>
+<script data-react-helmet="true" >
+    const shouldSetIsDark = document.cookie.includes('is_dark=1') ? true : document.cookie.includes('is_dark=0') ? false : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (shouldSetIsDark) {
+      document.documentElement.classList.add('is_dark');
+      document.getElementById('prismTheme').href = "/assets/prism_tomorrow.css";
+    }
+  </script>
+</head><body><header><h1><a href="/">Deno 钻研之术</a></h1><nav><ul><li class="nav_custom_item"><a href="https://github.com/hylerrix/deno-tutorial">源码</a></li><li class="nav_custom_item"><a href="https://deno.land">官网</a></li><li class="nav_custom_item"><a href="https://github.com/hylerrix/awesome-deno-cn">资源</a></li><li class="nav_custom_item"><a href="https://nugine.github.io/deno-manual-cn">手册</a></li><li class="nav_custom_item"><a href="https://deno.js.cn">deno.js.cn</a></li><li class="nav_custom_item"><a href="https://denocn.org">denocn.org</a></li><li class="nav_custom_item"><a href="https://yoshixmk.github.io/deno-x-ranking/">Deno 库排行</a></li><li class="nav_custom_item"><a href="https://github.com/hylerrix">关于作者</a></li><li class="mobile_menu flex_center"><a class="czs-menu-l" href="#" style="background-image:url(&quot;/assets/czs-menu-l.svg&quot;)"></a></li><li class="mobile_header"><h1><a href="/">Deno 钻研之术</a></h1></li><li style="flex-grow:1"></li><li class="toggle_dark flex_center"><span class="czs-sun" style="background-image:url(&quot;/assets/czs-sun.svg&quot;)"></span><span class="czs-sun-l" style="background-image:url(&quot;/assets/czs-sun-l.svg&quot;)"></span><span class="czs-moon" style="background-image:url(&quot;/assets/czs-moon.svg&quot;)"></span><span class="czs-moon-l" style="background-image:url(&quot;/assets/czs-moon-l.svg&quot;)"></span></li></ul></nav></header><aside class="sidebar"><ol><li class="unfold"><a href="/index.html" class="nav_link">Deno 钻研之术</a></li><li class="unfold"><a href="/articles/index.html" class="nav_link">文章<span class="czs-angle-up-l" style="background-image:url(&quot;/assets/czs-angle-up-l.svg&quot;)"></span><span class="czs-angle-down-l" style="background-image:url(&quot;/assets/czs-angle-down-l.svg&quot;)"></span></a><ol style="height:auto"><li><a href="/articles/001-install-and-hello-world.html" class="nav_link">(1) Hello，从多样化安装到简单实战</a></li><li><a href="/articles/002-awesome-deno-cn.html" class="nav_link">(2) Awesome Deno 中文资源全图谱</a></li></ol></li><li class="unfold"><a href="/translations/index.html" class="nav_link">翻译<span class="czs-angle-up-l" style="background-image:url(&quot;/assets/czs-angle-up-l.svg&quot;)"></span><span class="czs-angle-down-l" style="background-image:url(&quot;/assets/czs-angle-down-l.svg&quot;)"></span></a><ol style="height:auto"><li><a href="/translations/001-the-deno-handbook.html" class="nav_link active">Deno 入门手册：附大量 TypeScript 代码实例</a></li><li><a href="/translations/002-deno-chat-app.html" class="nav_link">Deno + WebSockets 打造聊天室应用</a></li><li><a href="/translations/003-from-node-to-deno.html" class="nav_link">从 Node 到 Deno：探索各大主流库替代方案</a></li><li><a href="/translations/004-deno-oak-todo-api.html" class="nav_link">Deno + Oak 构建酷炫的 Todo API</a></li><li><a href="/translations/005-deno-oak-mysql.html" class="nav_link">Deno + Oak 连接 MySQL 实战教程</a></li></ol></li></ol><hr/><a class="powered_by" href="https://github.com/xcatliu/pagic" target="_blank">Powered by <img src="/assets/pagic.png"/>agic</a></aside><section class="main"><div class="main_article"><article><h1>Deno 入门手册：附大量 TypeScript 代码实例</h1>
 <blockquote>
 <ul>
 <li>原文地址：<a href="https://chinese.freecodecamp.org/news/the-deno-handbook-with-examples/">在 freeCodeCamp 中文社区阅读原文 The Deno Handbook</a></li>
@@ -23,7 +28,7 @@ if (shouldSetIsDark) {
 <p><img src="https://cdn.nlark.com/yuque/0/2020/jpeg/86548/1589798108212-9cf6dc3e-0bc8-4194-8d77-f6dafc31dcc1.jpeg#align=left&amp;display=inline&amp;height=904&amp;margin=%5Bobject%20Object%5D&amp;originHeight=904&amp;originWidth=1706&amp;size=0&amp;status=done&amp;style=none&amp;width=1706" alt=""></p>
 <p>我每周都在探索新的项目，很少会有一个像 <a href="https://deno.land/">Deno</a> 这样的项目让我如此着迷。</p>
 <p>在本手册中我想要让你快速入手 Deno。我会将其与 Node.js 进行对比，然后助力你在 Deno 上搭建第一个 REST API Demo。</p>
-<h2 id="%E7%9B%AE%E5%BD%95">目录 <a class="header-anchor" href="#%E7%9B%AE%E5%BD%95">§</a></h2>
+<h2 id="%E7%9B%AE%E5%BD%95">目录<a class="anchor" href="#%E7%9B%AE%E5%BD%95">§</a></h2>
 <ol>
 <li>什么是 Deno？</li>
 <li>为什么是 Deno？为什么是现在？</li>
@@ -48,7 +53,7 @@ if (shouldSetIsDark) {
 <li>结语</li>
 </ol>
 <p>此外，<a href="https://flaviocopes.com/page/deno-handbook/">你可以在此处获取此 Deno 手册的 PDF / ePub / Mobi 版本。</a></p>
-<h2 id="%E4%BB%80%E4%B9%88%E6%98%AF-deno%EF%BC%9F">什么是 Deno？ <a class="header-anchor" href="#%E4%BB%80%E4%B9%88%E6%98%AF-deno%EF%BC%9F">§</a></h2>
+<h2 id="%E4%BB%80%E4%B9%88%E6%98%AF-deno%EF%BC%9F">什么是 Deno？<a class="anchor" href="#%E4%BB%80%E4%B9%88%E6%98%AF-deno%EF%BC%9F">§</a></h2>
 <p>如果你熟悉流行的服务器端 JavaScript 运行时 Node.js，那么 Deno 就像 Node.js 一样，但却在很多方面都得到了深刻改善的全新 JavaScript / TypeScript 运行时。</p>
 <p>让我们从 Deno 的功能列表快速了解：</p>
 <ul>
@@ -66,7 +71,7 @@ if (shouldSetIsDark) {
 <p>特别是因为 Node.js 的 API 是基于回调机制的，因为 Node.js 是在 Promise 和 Async / Await 定义在标准之前编写的。Node.js 中无法对此机制进行全新的更改，因为此类更改将产生“毁灭性”的影响。因此，在 Node.js 中我们陷入了回调大量 API 的困境。</p>
 <p>Node.js 的确很棒，并在可见的未来将继续成为 JavaScript 世界中事实上的标准。但我认为我们将逐渐看到 Deno 会因其一流的 TypeScript 支持和其内置的、覆盖面广泛的现代标准库而越来越被重视和采用。</p>
 <p>由于没有向后兼容性的历史原因，Deno 将可以承担起所有使用现代 Web 技术编写的工程建设。但目前的现实是，我们也无法保证十年之内 Deno 不会发生像 Node.js 同样的事情，并且不会出现一项新技术代替 Deno。</p>
-<h2 id="%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF-deno%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E7%8E%B0%E5%9C%A8%EF%BC%9F">为什么是 Deno？为什么是现在？ <a class="header-anchor" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF-deno%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E7%8E%B0%E5%9C%A8%EF%BC%9F">§</a></h2>
+<h2 id="%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF-deno%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E7%8E%B0%E5%9C%A8%EF%BC%9F">为什么是 Deno？为什么是现在？<a class="anchor" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF-deno%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E7%8E%B0%E5%9C%A8%EF%BC%9F">§</a></h2>
 <p>大约 2 年前，Node.js 的创建者 Ryan Dahl 在 JSConf EU 上首次介绍了 Deno。观看<a href="https://www.youtube.com/watch?v=M3BM9TB-8yA">当时的演讲视频</a>会非常有趣。如果你平时在大量接触 Node.js 和 JavaScript，这个视频请不要错过。</p>
 <p>每个项目经理都必须下发决定。Ryan 回看 Node.js 中的一些早期设计依然感觉十分遗憾。此外，在 ES6/2016/2017 等持续发展中的标准加持下，如今的 JavaScript 与 2009 年 Node.js 创立时的 JavaScript 已经大不相同。</p>
 <p>因此，他开启了一个全新项目，从而创建出服务器端的第二代 JavaScript 运行时。</p>
@@ -75,14 +80,14 @@ if (shouldSetIsDark) {
 <p>译者注：翻译本手册时 Deno 1.0 已经发布。</p>
 </blockquote>
 <p>1.0 看起来仅仅是个数字，但在社区约定下，意味着直到 Deno 2.0 前 Deno 都不会有太多重大的破坏性改变——这很重要，因为你终于可以安心学习 Deno 当前的稳定版本了。</p>
-<h2 id="%E4%BD%A0%E5%BA%94%E8%AF%A5%E5%AD%A6%E4%B9%A0-deno-%E5%90%97%EF%BC%9F">你应该学习 Deno 吗？ <a class="header-anchor" href="#%E4%BD%A0%E5%BA%94%E8%AF%A5%E5%AD%A6%E4%B9%A0-deno-%E5%90%97%EF%BC%9F">§</a></h2>
+<h2 id="%E4%BD%A0%E5%BA%94%E8%AF%A5%E5%AD%A6%E4%B9%A0-deno-%E5%90%97%EF%BC%9F">你应该学习 Deno 吗？<a class="anchor" href="#%E4%BD%A0%E5%BA%94%E8%AF%A5%E5%AD%A6%E4%B9%A0-deno-%E5%90%97%EF%BC%9F">§</a></h2>
 <p>这并不那么容易回答。</p>
 <p>学习像 Deno 这样全新的知识需要不少的前期技术沉淀。我的建议是：如果你现在才开始在服务器端使用 JavaScript 编程，并且你还不了解 Node.js，更没有任何 TypeScript 应用开发经验——那么请从 Node.js 学起。</p>
 <p>毕竟用通俗观点来说，没有人会在如今因为选择学习 Node.js 而被解雇。</p>
 <p>但如果你喜欢 TypeScript、也不想让项目中依赖无比庞大的 NPM 软件包、还想要随时随地使用 <code>await</code> 等语法，那么你可能真的需要 Deno。</p>
-<h2 id="deno-%E5%B0%86%E5%8F%96%E4%BB%A3-node.js-%E5%90%97%EF%BC%9F">Deno 将取代 Node.js 吗？ <a class="header-anchor" href="#deno-%E5%B0%86%E5%8F%96%E4%BB%A3-node.js-%E5%90%97%EF%BC%9F">§</a></h2>
+<h2 id="deno-%E5%B0%86%E5%8F%96%E4%BB%A3-node.js-%E5%90%97%EF%BC%9F">Deno 将取代 Node.js 吗？<a class="anchor" href="#deno-%E5%B0%86%E5%8F%96%E4%BB%A3-node.js-%E5%90%97%EF%BC%9F">§</a></h2>
 <p>不能。Node.js 的生态已经十分庞大和完善，获得了数以万计的优秀技术支持，将能再战数十年。</p>
-<h2 id="%E4%B8%80%E6%B5%81%E7%9A%84-typescript-%E6%94%AF%E6%8C%81">一流的 TypeScript 支持 <a class="header-anchor" href="#%E4%B8%80%E6%B5%81%E7%9A%84-typescript-%E6%94%AF%E6%8C%81">§</a></h2>
+<h2 id="%E4%B8%80%E6%B5%81%E7%9A%84-typescript-%E6%94%AF%E6%8C%81">一流的 TypeScript 支持<a class="anchor" href="#%E4%B8%80%E6%B5%81%E7%9A%84-typescript-%E6%94%AF%E6%8C%81">§</a></h2>
 <p>Deno 基于 Rust 和 TypeScript 这两种今天正在迅速发展的语言编写。</p>
 <p>这意味着，即使我们可能选择编写纯 JavaScript 代码来运行在基于 TypeScript 语言编写的 Deno 上，我们也可以获得 TypeScript 的很多好处。</p>
 <p>使用 Deno 运行 TypeScript 代码无需任何手动编译——Deno 会自动为你执行此步骤。</p>
@@ -90,7 +95,7 @@ if (shouldSetIsDark) {
 <p>首先，越来越多的 JavaScript 程序员开始喜欢上了 TypeScript 语言。</p>
 <p>其次，你使用的工具可以方便地推断出许多有关用 TypeScript 语言编写的软件的信息，例如 Deno。</p>
 <p>因此，当我们在 VS Code（紧密集成 TypeScript 的编辑器）上的编码环节就能及时地体会到类型检查和高级<a href="https://code.visualstudio.com/docs/editor/intellisense">智能感知（IntelliSense）</a>功能带来的好处。换句话说，编辑器可以以非常有用的方式来帮助我们了解 TypeScript 项目。</p>
-<h2 id="%E4%B8%8E-node.js-%E7%9A%84%E5%BC%82%E5%90%8C">与 Node.js 的异同 <a class="header-anchor" href="#%E4%B8%8E-node.js-%E7%9A%84%E5%BC%82%E5%90%8C">§</a></h2>
+<h2 id="%E4%B8%8E-node.js-%E7%9A%84%E5%BC%82%E5%90%8C">与 Node.js 的异同<a class="anchor" href="#%E4%B8%8E-node.js-%E7%9A%84%E5%BC%82%E5%90%8C">§</a></h2>
 <p>由于 Deno 从某种角度来讲是 Node.js 的替代品，因此直接比较两者的异同对我们的理解会很有帮助。</p>
 <p>相似之处：</p>
 <ul>
@@ -106,11 +111,11 @@ if (shouldSetIsDark) {
 <li>Deno 通过权限控制提供了一个安全的沙箱环境，程序只能访问由用户设置为可执行标志的文件。Node.js 程序可以直接访问用户足以访问的任何内容。</li>
 <li>Deno 长期以来一直在探索将程序编译成单个可执行文件的可能性，从而使得该可执行文件可以在没有外部依赖项（例如 Go）的情况下运行，但这并<a href="https://github.com/denoland/deno/issues/986">不是一件容易的事</a>，如果做得到，将会成为更有话语权的游戏规则改变者。</li>
 </ul>
-<h2 id="%E6%B2%A1%E6%9C%89%E5%8C%85%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%E5%99%A8">没有包依赖管理器 <a class="header-anchor" href="#%E6%B2%A1%E6%9C%89%E5%8C%85%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%E5%99%A8">§</a></h2>
+<h2 id="%E6%B2%A1%E6%9C%89%E5%8C%85%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%E5%99%A8">没有包依赖管理器<a class="anchor" href="#%E6%B2%A1%E6%9C%89%E5%8C%85%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%E5%99%A8">§</a></h2>
 <p>没有像 NPM 一样的程序包管理器并且大量依靠 URL 来承载和导入程序包是有利有弊的。但我真的很喜欢这个特性：它将会非常灵活，我们可以直接创建软件包而无需在 NPM 这样的存储库中发布它们。</p>
 <p>虽然还没有官方的消息，但我认为 Deno 下的某种软件包管理器将会出现。</p>
 <p>与此同时，Deno 网站为第三方软件包提供代码托管服务（并帮助其通过 URL 分发）：详见 <a href="https://deno.land/x/">https://deno.land/x/</a>。</p>
-<h2 id="%E5%AE%89%E8%A3%85-deno">安装 Deno <a class="header-anchor" href="#%E5%AE%89%E8%A3%85-deno">§</a></h2>
+<h2 id="%E5%AE%89%E8%A3%85-deno">安装 Deno<a class="anchor" href="#%E5%AE%89%E8%A3%85-deno">§</a></h2>
 <p>就闲聊到这里吧！让我们开始着手安装 Deno。</p>
 <p>最简单的方法是使用 <a href="https://flaviocopes.com/homebrew/">Homebrew</a>：</p>
 <pre class="language-bash"><code class="language-bash">brew <span class="token function">install</span> deno
@@ -183,7 +188,7 @@ ENVIRONMENT VARIABLES:
                          <span class="token punctuation">(</span>module downloads, fetch<span class="token punctuation">)</span>
     HTTPS_PROXY          Same but <span class="token keyword">for</span> HTTPS
 </code></pre>
-<h2 id="deno-%E5%91%BD%E4%BB%A4">Deno 命令 <a class="header-anchor" href="#deno-%E5%91%BD%E4%BB%A4">§</a></h2>
+<h2 id="deno-%E5%91%BD%E4%BB%A4">Deno 命令<a class="anchor" href="#deno-%E5%91%BD%E4%BB%A4">§</a></h2>
 <p>请注意上节中 <code>deno --help</code> 后 <code>SUBCOMMANDS</code> 中的部分，其中列出了我们在当前版本（0.42.0）中可以运行的所有命令，如下：</p>
 <ul>
 <li><code>bundle</code> ：将项目的模块和依赖项捆绑到单个文件中；</li>
@@ -211,7 +216,7 @@ ENVIRONMENT VARIABLES:
 <p>你可以同时运行 TypeScript（.ts）文件或 JavaScript（.js）文件。</p>
 <p>如果你不熟悉 TypeScript，请不要担心——Deno 是用 TypeScript 编写的，并且你可以使用纯 JavaScript 编写“客户端”应用程序。</p>
 <p>如果你想快速上手的 TypeScript 话，可以阅读我的 <a href="https://flaviocopes.com/typescript/">TypeScript 教程</a>。</p>
-<h2 id="%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-deno-%E5%BA%94%E7%94%A8">你的第一个 Deno 应用 <a class="header-anchor" href="#%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-deno-%E5%BA%94%E7%94%A8">§</a></h2>
+<h2 id="%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-deno-%E5%BA%94%E7%94%A8">你的第一个 Deno 应用<a class="anchor" href="#%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-deno-%E5%BA%94%E7%94%A8">§</a></h2>
 <p>让我们来运行第一个 Deno 应用程序。</p>
 <p>Deno 让我感到非常惊奇的特性是：你甚至不必写一行代码，便可以直接运行任何 URL 上的 Deno 应用程序。</p>
 <p>此时 Deno 会将 URL 上的程序下载到本地并进行编译，然后运行：</p>
@@ -337,7 +342,7 @@ ARGS:
     <span class="token operator">&lt;</span>SCRIPT_ARG<span class="token operator">></span><span class="token punctuation">..</span>.
             script args
 </code></pre>
-<h2 id="deno-%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8B">Deno 代码实例 <a class="header-anchor" href="#deno-%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8B">§</a></h2>
+<h2 id="deno-%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8B">Deno 代码实例<a class="anchor" href="#deno-%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8B">§</a></h2>
 <p>除了前文我们运行的 Demo 外，Deno 官网还提供了一些其他的例子，可以在这里查看：<a href="https://deno.land/std/examples/">https://deno.land/std/examples/</a>。</p>
 <blockquote>
 <p>译者注：你可能需要配置代理来更好地访问 DenoLand。</p>
@@ -355,7 +360,7 @@ ARGS:
 <li><code>welcome.ts</code> ：一个简单的 console.log 语句（我们在上面运行的第一个程序）；</li>
 <li><code>xeval.ts</code> ：允许你为收到的任何标准输入行运行任何 TypeScript 代码。曾经被设计为 <code>deno xeval</code> 子命令但现在从官方命令中删除。</li>
 </ul>
-<h2 id="%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-deno-%E5%BA%94%E7%94%A8%EF%BC%88%E6%B7%B1%E5%85%A5%E7%89%88%EF%BC%89">你的第一个 Deno 应用（深入版） <a class="header-anchor" href="#%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-deno-%E5%BA%94%E7%94%A8%EF%BC%88%E6%B7%B1%E5%85%A5%E7%89%88%EF%BC%89">§</a></h2>
+<h2 id="%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-deno-%E5%BA%94%E7%94%A8%EF%BC%88%E6%B7%B1%E5%85%A5%E7%89%88%EF%BC%89">你的第一个 Deno 应用（深入版）<a class="anchor" href="#%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-deno-%E5%BA%94%E7%94%A8%EF%BC%88%E6%B7%B1%E5%85%A5%E7%89%88%EF%BC%89">§</a></h2>
 <p>我们来写一些代码吧。</p>
 <p>前文执行的 <code>deno run [https://deno.land/std/examples/welcome.ts](https://deno.land/std/examples/welcome.ts)</code> 命令执行的是官网提供的一个 Deno 应用，所以我们没有看到任何关于 Deno 代码具体的样子。</p>
 <p>接下来让我们从 Deno 官方网站上列出的默认示例应用开始。</p>
@@ -430,7 +435,7 @@ ARGS:
 <p><img src="https://cdn.nlark.com/yuque/0/2020/jpeg/86548/1589798108249-f25465bc-528c-44f8-91bf-a9cb5530258a.jpeg#align=left&amp;display=inline&amp;height=364&amp;margin=%5Bobject%20Object%5D&amp;originHeight=364&amp;originWidth=1266&amp;size=0&amp;status=done&amp;style=none&amp;width=1266" alt=""></p>
 <p>这是怎么回事？我们为什么会收到执行权限被拒绝的提示？</p>
 <p>这就涉及到了 Deno 的 Sandbox 问题，我们一起来看看。</p>
-<h2 id="deno-%E5%AE%89%E5%85%A8%E6%B2%99%E7%AE%B1%EF%BC%88sandbox%EF%BC%89">Deno 安全沙箱（Sandbox） <a class="header-anchor" href="#deno-%E5%AE%89%E5%85%A8%E6%B2%99%E7%AE%B1%EF%BC%88sandbox%EF%BC%89">§</a></h2>
+<h2 id="deno-%E5%AE%89%E5%85%A8%E6%B2%99%E7%AE%B1%EF%BC%88sandbox%EF%BC%89">Deno 安全沙箱（Sandbox）<a class="anchor" href="#deno-%E5%AE%89%E5%85%A8%E6%B2%99%E7%AE%B1%EF%BC%88sandbox%EF%BC%89">§</a></h2>
 <p>我之前提到过，Deno 有一个安全沙箱，可以防止程序做一些你不允许的事情。</p>
 <p>这意味着什么呢？</p>
 <p>Ryan 曾在 Deno 的介绍讲座中提到的一件事是：有时候你想在 Web 浏览器之外运行一个 JavaScript 程序，却不想让它肆意在你的系统中访问任何它想要的东西，比如使用网络与外部世界对话。</p>
@@ -455,13 +460,13 @@ ARGS:
 <li><code>--allow-all</code> ：允许所有权限(与<code>-A</code>相同)。</li>
 </ul>
 <p>其中，<code>net</code>、<code>read</code> 和 <code>write</code> 的权限可以是细化的。例如，你可以使用 <code>--allow-read=/dev</code>，允许从特定文件夹中读取。</p>
-<h2 id="%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%BB%A3%E7%A0%81">格式化代码 <a class="header-anchor" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%BB%A3%E7%A0%81">§</a></h2>
+<h2 id="%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%BB%A3%E7%A0%81">格式化代码<a class="anchor" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%BB%A3%E7%A0%81">§</a></h2>
 <p>Go 语言编译器自带的 <code>gofmt</code> 命令是我非常喜欢 Go 语言特性之一。所有的 Go 代码的格式看起来都是一样的。每位 Go 程序员都在使用 <code>gofmt</code>。</p>
 <p>JavaScript 程序员都习惯于运行 <a href="https://flaviocopes.com/prettier/">Prettier</a> 工具，而 <code>deno fmt</code> 实际上直接内置相关库到底层上运行。</p>
 <p>假设你有一个格式化问题严重的文件如下图所示。</p>
 <p><img src="https://cdn.nlark.com/yuque/0/2020/jpeg/86548/1589798108254-49bb0133-c6c2-4ebb-82e9-b0240541f0e0.jpeg#align=left&amp;display=inline&amp;height=751&amp;margin=%5Bobject%20Object%5D&amp;originHeight=751&amp;originWidth=1059&amp;size=0&amp;status=done&amp;style=none&amp;width=1059" alt=""></p>
 <p>你运行 <code>deno fmt app.ts</code>，它就会执行正确的代码格式化，包括自动加上缺失的分号。</p>
-<h2 id="%E6%A0%87%E5%87%86%E5%BA%93">标准库 <a class="header-anchor" href="#%E6%A0%87%E5%87%86%E5%BA%93">§</a></h2>
+<h2 id="%E6%A0%87%E5%87%86%E5%BA%93">标准库<a class="anchor" href="#%E6%A0%87%E5%87%86%E5%BA%93">§</a></h2>
 <p>尽管 Deno 还很年轻，但它的标准库仍然很庞大。这包括：</p>
 <ul>
 <li><code>archive</code> ：tar 文件归档的实用程序</li>
@@ -481,7 +486,7 @@ ARGS:
 <li><code>path</code> ：路径操纵</li>
 <li><code>ws</code> ：WebSockets</li>
 </ul>
-<h2 id="%E5%8F%A6%E4%B8%80%E4%B8%AA-deno-%E7%A4%BA%E4%BE%8B">另一个 Deno 示例 <a class="header-anchor" href="#%E5%8F%A6%E4%B8%80%E4%B8%AA-deno-%E7%A4%BA%E4%BE%8B">§</a></h2>
+<h2 id="%E5%8F%A6%E4%B8%80%E4%B8%AA-deno-%E7%A4%BA%E4%BE%8B">另一个 Deno 示例<a class="anchor" href="#%E5%8F%A6%E4%B8%80%E4%B8%AA-deno-%E7%A4%BA%E4%BE%8B">§</a></h2>
 <p>我们再来看看另一个 Deno APP 的例子，以如下 <code>cat.ts</code> 为例。</p>
 <pre class="language-typescript"><code class="language-typescript"><span class="token keyword">const</span> filenames <span class="token operator">=</span> <span class="token maybe-class-name">Deno</span><span class="token punctuation">.</span><span class="token property-access">args</span><span class="token punctuation">;</span>
 <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> filename <span class="token keyword">of</span> filenames<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -506,7 +511,7 @@ ARGS:
 <pre class="language-bash"><code class="language-bash">deno run --allow-read<span class="token operator">=</span>./ <a class="token url-link" href="https://deno.land/std/examples/cat.ts">https://deno.land/std/examples/cat.ts</a> app.ts
 </code></pre>
 <p><img src="https://cdn.nlark.com/yuque/0/2020/jpeg/86548/1589798108327-f72d7fd6-6971-4799-a9f0-19f07f536cd4.jpeg#align=left&amp;display=inline&amp;height=439&amp;margin=%5Bobject%20Object%5D&amp;originHeight=439&amp;originWidth=967&amp;size=0&amp;status=done&amp;style=none&amp;width=967" alt=""></p>
-<h2 id="deno-%E6%98%AF%E5%90%A6%E6%9C%89-express%2Fhapi%2Fkoa%2F*">Deno 是否有 Express/Hapi/Koa/* <a class="header-anchor" href="#deno-%E6%98%AF%E5%90%A6%E6%9C%89-express%2Fhapi%2Fkoa%2F*">§</a></h2>
+<h2 id="deno-%E6%98%AF%E5%90%A6%E6%9C%89-express%2Fhapi%2Fkoa%2F*">Deno 是否有 Express/Hapi/Koa/*<a class="anchor" href="#deno-%E6%98%AF%E5%90%A6%E6%9C%89-express%2Fhapi%2Fkoa%2F*">§</a></h2>
 <p>当然有。可以看看下方这些库。</p>
 <ul>
 <li><a href="https://github.com/drashland/deno-drash">deno-drash</a></li>
@@ -515,7 +520,7 @@ ARGS:
 <li><a href="https://github.com/sholladay/pogo">pogo</a></li>
 <li><a href="https://github.com/keroxp/servest">servest</a></li>
 </ul>
-<h2 id="%E7%A4%BA%E4%BE%8B%EF%BC%9A%E4%BD%BF%E7%94%A8-oak-%E6%9E%84%E5%BB%BA-rest-api">示例：使用 Oak 构建 REST-API <a class="header-anchor" href="#%E7%A4%BA%E4%BE%8B%EF%BC%9A%E4%BD%BF%E7%94%A8-oak-%E6%9E%84%E5%BB%BA-rest-api">§</a></h2>
+<h2 id="%E7%A4%BA%E4%BE%8B%EF%BC%9A%E4%BD%BF%E7%94%A8-oak-%E6%9E%84%E5%BB%BA-rest-api">示例：使用 Oak 构建 REST-API<a class="anchor" href="#%E7%A4%BA%E4%BE%8B%EF%BC%9A%E4%BD%BF%E7%94%A8-oak-%E6%9E%84%E5%BB%BA-rest-api">§</a></h2>
 <p>我想在这里做一个简单的 Demo 实战，介绍一下如何使用 Oak 框架构建<code>REST API</code>。Oak 很有意思，因为它的灵感来自于 Koa，一个流行的 Node.js 中间件。正因为如此，如果你以前用过 Koa 的话，会很快熟悉 Oak。</p>
 <p>我们要构建的 API 示例也非常简单。</p>
 <p>我们的服务器将在内存中存储一个带有名字和年龄的旺柴的列表。</p>
@@ -823,19 +828,19 @@ app<span class="token punctuation">.</span><span class="token method function pr
 
 <span class="token keyword">await</span> app<span class="token punctuation">.</span><span class="token method function property-access">listen</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token constant">HOST</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token constant">PORT</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<h2 id="%E6%9B%B4%E5%A4%9A%E5%86%85%E5%AE%B9">更多内容 <a class="header-anchor" href="#%E6%9B%B4%E5%A4%9A%E5%86%85%E5%AE%B9">§</a></h2>
+<h2 id="%E6%9B%B4%E5%A4%9A%E5%86%85%E5%AE%B9">更多内容<a class="anchor" href="#%E6%9B%B4%E5%A4%9A%E5%86%85%E5%AE%B9">§</a></h2>
 <p>Deno 官方网站为 <a href="https://deno.land">https://deno.land</a>。</p>
 <p>API 文档位于 <a href="https://doc.deno.land">https://doc.deno.land</a> 和 <a href="https://deno.land/typedoc/index.html">https://deno.land/typedoc/index.html</a> 中。</p>
 <p>一份 Awesome Deno 资源清单 <a href="https://github.com/denolib/awesome-deno">https://github.com/denolib/awesome-deno</a>。</p>
 <blockquote>
 <p>译者注：中文的 Awesome Deno 清单由译者持续维护中，可以访问这里：<a href="https://github.com/hylerrix/awesome-deno-cn">Awesome Deno 资源全图谱</a></p>
 </blockquote>
-<h2 id="%E8%8A%B1%E7%B5%AE">花絮 <a class="header-anchor" href="#%E8%8A%B1%E7%B5%AE">§</a></h2>
+<h2 id="%E8%8A%B1%E7%B5%AE">花絮<a class="anchor" href="#%E8%8A%B1%E7%B5%AE">§</a></h2>
 <ul>
 <li>Deno 提供了一个内置的 <code>fetch</code> 实现，该实现与浏览器中可用的匹配。</li>
 <li>Deno 正在进行与 Node.js stdlib 的兼容层</li>
 </ul>
-<h2 id="%E7%BB%93%E8%AF%AD">结语 <a class="header-anchor" href="#%E7%BB%93%E8%AF%AD">§</a></h2>
+<h2 id="%E7%BB%93%E8%AF%AD">结语<a class="anchor" href="#%E7%BB%93%E8%AF%AD">§</a></h2>
 <p>我希望你喜欢这个 Deno 入门手册！</p>
 <p>别忘了，<a href="https://flaviocopes.com/page/deno-handbook/">你可以在此处获取此 Deno 手册的 PDF / ePub / Mobi 版本。</a></p>
-</article></section><script crossorigin="anonymous" src="https://unpkg.com/react@16.13.1/umd/react.production.min.js"></script><script crossorigin="anonymous" src="https://unpkg.com/react-dom@16.13.1/umd/react-dom.production.min.js"></script><script type="module" src="/main.js"></script></body></html>
+</article></div><div class="main_toc_container nav_link_container"><div class="main_toc"><aside><nav class="toc"><ol><li><a href="#%E7%9B%AE%E5%BD%95">目录</a></li><li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF-deno%EF%BC%9F">什么是 Deno？</a></li><li><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF-deno%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E7%8E%B0%E5%9C%A8%EF%BC%9F">为什么是 Deno？为什么是现在？</a></li><li><a href="#%E4%BD%A0%E5%BA%94%E8%AF%A5%E5%AD%A6%E4%B9%A0-deno-%E5%90%97%EF%BC%9F">你应该学习 Deno 吗？</a></li><li><a href="#deno-%E5%B0%86%E5%8F%96%E4%BB%A3-node.js-%E5%90%97%EF%BC%9F">Deno 将取代 Node.js 吗？</a></li><li><a href="#%E4%B8%80%E6%B5%81%E7%9A%84-typescript-%E6%94%AF%E6%8C%81">一流的 TypeScript 支持</a></li><li><a href="#%E4%B8%8E-node.js-%E7%9A%84%E5%BC%82%E5%90%8C">与 Node.js 的异同</a></li><li><a href="#%E6%B2%A1%E6%9C%89%E5%8C%85%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%E5%99%A8">没有包依赖管理器</a></li><li><a href="#%E5%AE%89%E8%A3%85-deno">安装 Deno</a></li><li><a href="#deno-%E5%91%BD%E4%BB%A4">Deno 命令</a></li><li><a href="#%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-deno-%E5%BA%94%E7%94%A8">你的第一个 Deno 应用</a></li><li><a href="#deno-%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8B">Deno 代码实例</a></li><li><a href="#%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-deno-%E5%BA%94%E7%94%A8%EF%BC%88%E6%B7%B1%E5%85%A5%E7%89%88%EF%BC%89">你的第一个 Deno 应用（深入版）</a></li><li><a href="#deno-%E5%AE%89%E5%85%A8%E6%B2%99%E7%AE%B1%EF%BC%88sandbox%EF%BC%89">Deno 安全沙箱（Sandbox）</a></li><li><a href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%BB%A3%E7%A0%81">格式化代码</a></li><li><a href="#%E6%A0%87%E5%87%86%E5%BA%93">标准库</a></li><li><a href="#%E5%8F%A6%E4%B8%80%E4%B8%AA-deno-%E7%A4%BA%E4%BE%8B">另一个 Deno 示例</a></li><li><a href="#deno-%E6%98%AF%E5%90%A6%E6%9C%89-express%2Fhapi%2Fkoa%2F*">Deno 是否有 Express/Hapi/Koa/*</a></li><li><a href="#%E7%A4%BA%E4%BE%8B%EF%BC%9A%E4%BD%BF%E7%94%A8-oak-%E6%9E%84%E5%BB%BA-rest-api">示例：使用 Oak 构建 REST-API</a></li><li><a href="#%E6%9B%B4%E5%A4%9A%E5%86%85%E5%AE%B9">更多内容</a></li><li><a href="#%E8%8A%B1%E7%B5%AE">花絮</a></li><li><a href="#%E7%BB%93%E8%AF%AD">结语</a></li></ol></nav></aside></div></div></section><script crossorigin="anonymous" src="https://unpkg.com/react@16.13.1/umd/react.production.min.js"></script><script crossorigin="anonymous" src="https://unpkg.com/react-dom@16.13.1/umd/react-dom.production.min.js"></script><script type="module" src="/index.js"></script></body></html>
