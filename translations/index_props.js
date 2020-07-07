@@ -9,62 +9,83 @@ export default {
             "pagePath": "README.md"
         },
         {
-            "link": "articles/index.html",
+            "text": "基础篇",
             "children": [
                 {
-                    "text": "(1) Hello，从多样化安装到简单实战",
-                    "link": "articles/001-install-and-hello-world.html",
-                    "pagePath": "articles/001-install-and-hello-world.md"
-                },
-                {
-                    "text": "(2) Awesome Deno 中文资源全图谱",
-                    "link": "articles/002-awesome-deno-cn.html",
-                    "pagePath": "articles/002-awesome-deno-cn.md"
+                    "text": "Hello，从多样化安装到简单实战",
+                    "link": "articles/basic/install-and-hello-world.html",
+                    "pagePath": "articles/basic/install-and-hello-world.md"
                 }
-            ],
-            "text": "文章",
-            "pagePath": "articles/README.md"
+            ]
         },
         {
-            "link": "translations/index.html",
+            "text": "生态篇",
+            "children": [
+                {
+                    "text": "Awesome Deno 中文资源全图谱",
+                    "link": "articles/ecology/awesome-deno-cn.html",
+                    "pagePath": "articles/ecology/awesome-deno-cn.md"
+                }
+            ]
+        },
+        {
+            "text": "Node 篇",
+            "children": [
+                {
+                    "text": "深入浅出 Create React App",
+                    "link": "articles/node/create-react-app-intro.html",
+                    "pagePath": "articles/node/create-react-app-intro.md"
+                },
+                {
+                    "text": "欲取代绝大多 JavaScript 工具链？Rome 尝鲜",
+                    "link": "articles/node/javascript-toolchain-rome.html",
+                    "pagePath": "articles/node/javascript-toolchain-rome.md"
+                }
+            ]
+        },
+        {
+            "text": "翻译篇",
             "children": [
                 {
                     "text": "Deno 入门手册：附大量 TypeScript 代码实例",
-                    "link": "translations/001-the-deno-handbook.html",
-                    "pagePath": "translations/001-the-deno-handbook.md"
+                    "link": "translations/the-deno-handbook.html",
+                    "pagePath": "translations/the-deno-handbook.md"
                 },
                 {
                     "text": "Deno + WebSockets 打造聊天室应用",
-                    "link": "translations/002-deno-chat-app.html",
-                    "pagePath": "translations/002-deno-chat-app.md"
+                    "link": "translations/deno-chat-app.html",
+                    "pagePath": "translations/deno-chat-app.md"
                 },
                 {
                     "text": "从 Node 到 Deno：探索各大主流库替代方案",
-                    "link": "translations/003-from-node-to-deno.html",
-                    "pagePath": "translations/003-from-node-to-deno.md"
+                    "link": "translations/from-node-to-deno.html",
+                    "pagePath": "translations/from-node-to-deno.md"
                 },
                 {
                     "text": "Deno + Oak 构建酷炫的 Todo API",
-                    "link": "translations/004-deno-oak-todo-api.html",
-                    "pagePath": "translations/004-deno-oak-todo-api.md"
+                    "link": "translations/deno-oak-todo-api.html",
+                    "pagePath": "translations/deno-oak-todo-api.md"
                 },
                 {
                     "text": "Deno + Oak 连接 MySQL 实战教程",
-                    "link": "translations/005-deno-oak-mysql.html",
-                    "pagePath": "translations/005-deno-oak-mysql.md"
+                    "link": "translations/deno-oak-mysql.html",
+                    "pagePath": "translations/deno-oak-mysql.md"
                 }
-            ],
-            "text": "翻译",
-            "pagePath": "translations/README.md"
+            ]
+        },
+        {
+            "text": "感谢",
+            "link": "articles/THANKS.html",
+            "pagePath": "articles/THANKS.md"
         }
     ],
     config: { "srcDir": "src", "publicDir": "public", "base": "/", ...projectConfig },
     'pagePath': "translations/README.md",
     'layoutPath': "_layout.tsx",
     'outputPath': "translations/index.html",
-    'title': "翻译",
+    'title': "翻译篇",
     'content': React.createElement("article", { dangerouslySetInnerHTML: {
-            __html: '<h1>翻译</h1>\n'
+            __html: '<h1>翻译篇</h1>\n'
         } }),
     'script': React.createElement(React.Fragment, null,
         React.createElement("script", { crossOrigin: "anonymous", src: "https://unpkg.com/react@16.13.1/umd/react.production.min.js" }),
